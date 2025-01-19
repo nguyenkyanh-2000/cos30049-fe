@@ -5,11 +5,15 @@ import { WalletDto } from "@/app/_api-types/wallets";
 
 export type WalletNode = Node<WalletDto>;
 
-export default function WalletNode({ data }: NodeProps<WalletNode>) {
+export default function WalletNode({ data, selected }: NodeProps<WalletNode>) {
   return (
     <>
-      <div className="px-4 py-2 shadow-md rounded-md bg-white border-2 border-stone-400">
-        <div className="flex gap-4">
+      <div
+        className={`px-4 py-2 shadow-md rounded-md ${
+          selected ? "bg-green-400" : "bg-white"
+        } border-2 border-stone-400`}
+      >
+        <div className="flex gap-4 items-center">
           {data.currency && (
             <div className="w-12 rounded-full">
               <AspectRatio ratio={1}>
@@ -31,7 +35,7 @@ export default function WalletNode({ data }: NodeProps<WalletNode>) {
           )}
 
           <div className="ml-2">
-            <div className="font-bold text-sm text-ellipsis overflow-hidden">
+            <div className="font-bold text-sm w-[300px] text-ellipsis overflow-hidden">
               {data.address}
             </div>
             <div className="text-gray-500">{data.type}</div>

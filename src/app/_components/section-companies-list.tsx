@@ -26,6 +26,7 @@ export default async function CompaniesList() {
               src={company.src}
               alt={`${company.name} logo`}
               fill
+              sizes="100px"
               className="absolute object-scale-down"
             />
           </div>

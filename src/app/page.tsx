@@ -7,7 +7,6 @@ import CTASection from "./_components/section-features";
 import Footer from "./_components/section-footer";
 import LandingPage from "./_components/landing-page";
 
-
 async function Page() {
   return (
     <main className="min-h-screen overflow-x-hidden">
