@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,17 +20,11 @@ export default function Header() {
           <Link href="/" className="text-gray-700 hover:text-gray-900">
             Home
           </Link>
-          <Link
-            href="/news"
-            className="text-gray-700 hover:text-gray-900"
-          >
+          <Link href="/news" className="text-gray-700 hover:text-gray-900">
             News
           </Link>
           <Link href="/wallets" className="text-gray-700 hover:text-gray-900">
             Wallets
-          </Link>
-          <Link href={"/login"}>
-            <Button>Log in</Button>
           </Link>
         </nav>
 
@@ -82,11 +75,7 @@ export default function Header() {
             className="rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-100"
             onClick={() => setIsMenuOpen(false)}
           >
-            wallets
-          </Link>
-
-          <Link href={"/login"}>
-            <Button>Log in</Button>
+            Wallets
           </Link>
         </nav>
       </div>

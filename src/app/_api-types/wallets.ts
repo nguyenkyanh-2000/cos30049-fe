@@ -2,6 +2,12 @@ import { components, paths } from "@/lib/types";
 
 export type WalletDto = components["schemas"]["WalletDto"];
 
+// GET /api/wallets
+export type SuccessGetWalletsResponse =
+  paths["/api/wallets"]["get"]["responses"]["200"]["content"]["application/json"];
+export type ErrorGetWalletsResponse =
+  paths["/api/wallets"]["get"]["responses"]["500"]["content"]["application/json"];
+
 // GET /api/wallets/{address}
 export type SuccessGetWalletResponse =
   paths["/api/wallets/{address}"]["get"]["responses"]["200"]["content"]["application/json"];

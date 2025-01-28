@@ -116,7 +116,7 @@ export default function SectionWalletNeighbors({
 
       setSelectedWallets((prev) => [...prev, node.data]);
     },
-    [selectedWallets, level]
+    [selectedWallets, level, setEdges, setNodes]
   );
 
   const refreshGraph = () => {

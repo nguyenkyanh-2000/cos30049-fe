@@ -65,45 +65,6 @@ export default function SectionWalletDetails() {
           </div>
         </CardContent>
       </Card>
-
-      <Card>
-        <CardContent className="pt-6">
-          <h3 className="text-lg font-medium mb-4">Token Holdings</h3>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
-                  ETH
-                </div>
-                <div>
-                  <p className="font-medium">Ethereum</p>
-                  <p className="text-sm text-gray-500">ETH</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="font-medium">12.458 ETH</p>
-                <p className="text-sm text-gray-500">$23,456.78</p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg transition-colors">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
-                  UNI
-                </div>
-                <div>
-                  <p className="font-medium">Uniswap</p>
-                  <p className="text-sm text-gray-500">UNI</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="font-medium">150 UNI</p>
-                <p className="text-sm text-gray-500">$1,234.56</p>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 }

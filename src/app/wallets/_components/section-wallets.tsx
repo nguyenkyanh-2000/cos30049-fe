@@ -1,80 +1,110 @@
 "use client";
-import React from "react";
-import { Search } from "lucide-react";
-import { Card, CardHeader, CardContent } from "@/components/ui/card";
+
+import { CircleHelp, Search, Wallet } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import {
+  ErrorGetWalletsResponse,
+  SuccessGetWalletsResponse,
+  WalletDto,
+} from "@/app/_api-types/wallets";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { WalletCard } from "./wallet-card";
 
 const SectionWallet = () => {
-  const [searchQuery, setSearchQuery] = React.useState("");
+  const [error, setError] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [wallets, setWallets] = useState<WalletDto[]>([]);
+
+  const searchWallet = async (formData: FormData) => {
+    const searchQuery = formData.get("searchQuery") as string;
+
+    setSearchQuery(searchQuery);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/wallets?query=${searchQuery}`
+    );
+    const res = await response.json();
+
+    if (response.ok) {
+      const successData: SuccessGetWalletsResponse = res;
+
+      if (!successData.data?.wallets) {
+        return;
+      }
+
+      setWallets(successData.data.wallets);
+    } else {
+      const errorData: ErrorGetWalletsResponse = res;
+      setError(errorData.message || "An error occurred");
+    }
+  };
 
   return (
-    <section className="container mx-auto px-5 py-12 mt-20 space-y-12">
+    <section className="container mx-auto px-5 py-12 mt-20 flex flex-col gap-4 items-center">
       {/* Header Section */}
-      <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold text-gray-900">crypto. Wallet</h1>
-        <p className="text-gray-600 mt-2">
-          Manage your digital assets securely
-        </p>
+      <div className="text-center">
+        <h1 className="text-4xl font-bold text-gray-900">Find wallet</h1>
+        {searchQuery ? (
+          <div className="text-center text-gray-500 mt-2">
+            {`Found ${wallets.length} wallets for search query "${searchQuery}"`}
+          </div>
+        ) : (
+          <p className="text-gray-500 mt-2">
+            Manage your digital assets securely
+          </p>
+        )}
       </div>
 
       {/* Search Section */}
-      <div className="max-w-2xl mx-auto mb-8">
-        <div className="relative">
-          <Input
-            type="text"
-            placeholder="Search by wallet address or transaction..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300"
-          />
-          <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-        </div>
+      <div className="max-w-2xl w-full">
+        <form action={searchWallet}>
+          <div className="flex gap-1">
+            <Input
+              type="text"
+              placeholder="Search by wallet address"
+              name="searchQuery"
+              className="w-full rounded-lg border border-gray-300"
+            />
+            <Button className="flex justify-center items-center" type="submit">
+              <Search className="h-5 w-5" />
+            </Button>
+          </div>
+        </form>
       </div>
 
-      {/* Main Content */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        <Card className="bg-white shadow-sm">
-          <CardHeader className="border-b">
-            <h2 className="text-xl font-semibold">Total Balance</h2>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <p className="text-3xl font-bold">$0.00</p>
-            <p className="text-sm text-gray-500 mt-1">Across all wallets</p>
-          </CardContent>
-        </Card>
+      <div className="rounded-xl border p-4 w-full mt-8">
+        {error && (
+          <div className="text-center text-red-500 font-semibold">{error}</div>
+        )}
 
-        <Card className="bg-white shadow-sm">
-          <CardHeader className="border-b">
-            <h2 className="text-xl font-semibold">Recent Transactions</h2>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <p className="text-gray-500">No recent transactions</p>
-          </CardContent>
-        </Card>
+        {!searchQuery ? (
+          <div className="flex flex-col items-center gap-4 h-[400px] justify-center w-full">
+            <Wallet className="h-24 w-24 text-gray-500" />
+            <p>Search for a wallet to get started</p>
+          </div>
+        ) : (
+          <ScrollArea className="w-full h-[400px]">
+            {wallets && wallets.length > 0 && (
+              <div className="flex flex-col gap-4">
+                {wallets.map((wallet) => (
+                  <WalletCard
+                    wallet={wallet}
+                    key={wallet.address}
+                    searchQuery={searchQuery}
+                  />
+                ))}
+              </div>
+            )}
 
-        <Card className="bg-white shadow-sm">
-          <CardHeader className="border-b">
-            <h2 className="text-xl font-semibold">Quick Actions</h2>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <div className="space-y-2">
-              <button className="w-full text-left px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-md transition">
-                Send Crypto
-              </button>
-              <button className="w-full text-left px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-md transition">
-                Receive Crypto
-              </button>
-              <button className="w-full text-left px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-md transition">
-                Buy Crypto
-              </button>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Footer */}
-      <div className="mt-12 text-center text-gray-500">
-        <p>Secure crypto management • 24/7 Support • Real-time tracking</p>
+            {searchQuery && wallets.length === 0 && (
+              <div className="flex flex-col items-center gap-4 h-[400px] justify-center w-full">
+                <CircleHelp className="h-24 w-24 text-gray-500" />
+                <p>No wallets found</p>
+              </div>
+            )}
+          </ScrollArea>
+        )}
       </div>
     </section>
   );

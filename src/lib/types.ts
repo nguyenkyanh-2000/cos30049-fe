@@ -50,6 +50,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/wallets": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get all wallets */
+        get: operations["WalletController_getWallets"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/wallets/{address}": {
         parameters: {
             query?: never;
@@ -74,7 +91,7 @@ export interface paths {
             path?: never;
             cookie?: never;
         };
-        /** Get a wallet based on the input address */
+        /** Get a wallet transactions based on the input address */
         get: operations["WalletController_getWalletTransactions"];
         put?: never;
         post?: never;
@@ -108,7 +125,7 @@ export interface components {
         UserDto: {
             id: string;
             email: string;
-            normalizedEmail?: string;
+            normalizedEmail?: Record<string, never>;
             address?: string | null;
             firstName?: string | null;
             lastName?: string | null;
@@ -162,15 +179,39 @@ export interface components {
             balance: number;
             currency?: components["schemas"]["CurrencyDto"];
         };
+        PaginationMetadata: {
+            page: number;
+            limit: number;
+            total: number;
+            totalPages: number;
+            hasPrevPage: boolean;
+            hasNextPage: boolean;
+        };
+        GetWalletsOutput: {
+            wallets: components["schemas"]["WalletDto"][];
+            metadata: components["schemas"]["PaginationMetadata"];
+        };
         TransactionDto: {
             id: string;
-            amount: number;
+            value: number;
             hash: string;
+            input: string;
+            transactionIndex: number;
+            gas: number;
+            gasUsed: number;
+            gasPrice: number;
+            transactionFee: number;
+            blockNumber: number;
+            blockHash: string;
             /** Format: date-time */
-            createdAt: string;
+            blockTimestamp: string;
             baseWallet?: components["schemas"]["WalletDto"];
             destinationWallet?: components["schemas"]["WalletDto"];
             currency?: components["schemas"]["CurrencyDto"];
+        };
+        GetWalletTransactionsOuput: {
+            transactions: components["schemas"]["TransactionDto"][];
+            metadata: components["schemas"]["PaginationMetadata"];
         };
     };
     responses: never;
@@ -269,6 +310,46 @@ export interface operations {
             };
         };
     };
+    WalletController_getWallets: {
+        parameters: {
+            query?: {
+                query?: string;
+                limit?: number;
+                page?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message?: string;
+                        /** @default 200 */
+                        statusCode: number;
+                        data?: components["schemas"]["GetWalletsOutput"];
+                    };
+                };
+            };
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        statusCode?: number;
+                        message?: string;
+                        error?: string;
+                    };
+                };
+            };
+        };
+    };
     WalletController_getWallet: {
         parameters: {
             query?: never;
@@ -311,6 +392,8 @@ export interface operations {
         parameters: {
             query?: {
                 type?: "INCOMING" | "OUTGOING" | "ALL";
+                limit?: number;
+                page?: number;
             };
             header?: never;
             path: {
@@ -329,7 +412,7 @@ export interface operations {
                         message?: string;
                         /** @default 200 */
                         statusCode: number;
-                        data?: components["schemas"]["TransactionDto"][];
+                        data?: components["schemas"]["GetWalletTransactionsOuput"];
                     };
                 };
             };
