@@ -6,7 +6,7 @@ import MockTradingFlowChart from "./mock-trading-flow-chart";
 export default async function MockAnalysis() {
   return (
     <section className="flex flex-col gap-20 bg-muted py-10 md:py-32">
-      <h2 className="font-black text-xl md:text-2xl lg:text-4xl text-center">
+      <h2 className="font-bold text-xl md:text-2xl lg:text-4xl text-center">
         Detailed analysis at your fingertips
       </h2>
       <div className="container mx-auto flex flex-col gap-5 px-5 md:px-8">

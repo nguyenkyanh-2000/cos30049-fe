@@ -1,10 +1,9 @@
-import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Card, CardContent } from "@/components/ui/card";
 import SectionWalletDetails from "./section-wallet-details";
 import SectionWalletNeighbors from "./section-wallet-neighbors";
 import { WalletDto } from "@/app/_api-types/wallets";
 import { ReactFlowProvider } from "@xyflow/react";
+import { TransactionsTable } from "./table/transactions-table";
 
 export default function SectionWallet({ wallet }: { wallet: WalletDto }) {
   return (
@@ -14,7 +13,7 @@ export default function SectionWallet({ wallet }: { wallet: WalletDto }) {
         <h1 className="text-3xl font-bold text-gray-900">Wallet Details</h1>
         <div className="flex items-center gap-2">
           <span className="font-bold">Address:</span>
-          <p className=" text-sm ">{wallet.address}</p>
+          <p className="text-sm">{wallet.address}</p>
         </div>
       </div>
 
@@ -58,13 +57,7 @@ export default function SectionWallet({ wallet }: { wallet: WalletDto }) {
           forceMount
           className="data-[state=inactive]:hidden"
         >
-          <Card>
-            <CardContent className="pt-6">
-              <p className="text-gray-500">
-                Transaction history will appear here
-              </p>
-            </CardContent>
-          </Card>
+          <TransactionsTable />
         </TabsContent>
       </Tabs>
     </div>

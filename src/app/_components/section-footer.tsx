@@ -1,24 +1,12 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Facebook, Github, Instagram, Twitter } from "lucide-react";
 
 export default function Footer() {
-  const [email, setEmail] = useState("");
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Handle newsletter subscription
-    console.log("Subscribing email:", email);
-    setEmail("");
-  };
-
   return (
     <footer className="mx-auto py-12 pt-8">
       {/* Desktop Footer */}
-      <div className="hidden md:block container mx-auto">
+      <div className="hidden md:block px-6 container mx-auto">
         {/* Top Section - Newsletter with Input */}
         <div className="flex justify-between items-start mb-12">
           <div>
@@ -28,12 +16,10 @@ export default function Footer() {
             </p>
           </div>
           <div className="relative w-96">
-            <form onSubmit={handleSubmit} className="relative">
+            <form className="relative">
               <input
                 type="email"
                 placeholder="Enter your email..."
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 className="w-full rounded-lg border border-gray-300 px-4 py-2 pr-24"
                 required
               />
@@ -68,7 +54,7 @@ export default function Footer() {
                 Email:{" "}
                 <a
                   href="mailto:supportcrypto@gmail.com"
-                  className="text-gray-600 hover:underline text-blue-600"
+                  className="text-gray-600 hover:underline "
                 >
                   supportcrypto@gmail.com
                 </a>
@@ -77,7 +63,7 @@ export default function Footer() {
                 Phone:{" "}
                 <a
                   href="tel:+84123495192"
-                  className="text-gray-600 hover:underline text-blue-600"
+                  className="text-gray-600 hover:underline "
                 >
                   +84 123 495 192
                 </a>
@@ -127,7 +113,7 @@ export default function Footer() {
               Email:{" "}
               <a
                 href="mailto:supportcrypto@gmail.com"
-                className="text-gray-600 hover:underline text-blue-600"
+                className="text-gray-600 hover:underline "
               >
                 supportcrypto@gmail.com
               </a>
@@ -136,7 +122,7 @@ export default function Footer() {
               Phone:{" "}
               <a
                 href="tel:+84123495192"
-                className="text-gray-600 hover:underline text-blue-600"
+                className="text-gray-600 hover:underline "
               >
                 +84 123 495 192
               </a>
@@ -144,12 +130,10 @@ export default function Footer() {
           </ul>
         </div>
 
-        <form onSubmit={handleSubmit} className="relative">
+        <form className="relative">
           <input
             type="email"
             placeholder="Enter your email..."
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
             className="w-full rounded-lg border border-gray-300 px-4 py-2 pr-24"
             required
           />

@@ -205,7 +205,7 @@ export interface components {
             blockHash: string;
             /** Format: date-time */
             blockTimestamp: string;
-            baseWallet?: components["schemas"]["WalletDto"];
+            sourceWallet?: components["schemas"]["WalletDto"];
             destinationWallet?: components["schemas"]["WalletDto"];
             currency?: components["schemas"]["CurrencyDto"];
         };
@@ -394,6 +394,8 @@ export interface operations {
                 type?: "INCOMING" | "OUTGOING" | "ALL";
                 limit?: number;
                 page?: number;
+                transactionHash?: string;
+                dstAddress?: string;
             };
             header?: never;
             path: {

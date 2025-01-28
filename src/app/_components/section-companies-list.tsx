@@ -12,7 +12,7 @@ const companies = [
 export default async function CompaniesList() {
   return (
     <section className="container mx-auto flex flex-col gap-20">
-      <h2 className="font-black text-xl md:text-2xl lg:text-4xl text-center">
+      <h2 className="font-bold text-xl md:text-2xl lg:text-4xl text-center">
         Powering the world&apos;s leading brands
       </h2>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
