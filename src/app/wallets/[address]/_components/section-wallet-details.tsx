@@ -1,27 +1,45 @@
+import { WalletDetailsDto } from "@/app/_api-types/wallets";
 import { Card, CardContent } from "@/components/ui/card";
+import { format, formatDistanceToNow } from "date-fns";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 
-export default function SectionWalletDetails() {
+export default function SectionWalletDetails({
+  data,
+}: {
+  data: WalletDetailsDto;
+}) {
+  const { wallet, firstTransaction, recentTransactions } = data;
+
   return (
     <div className="flex flex-col gap-4">
       <Card>
         <CardContent className="pt-6">
           <h3 className="text-lg font-medium mb-4">Balance Overview</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 w-full">
             <div className="space-y-1">
               <p className="text-sm text-gray-500">Total Balance</p>
-              <p className="text-2xl font-bold">12.458 ETH</p>
-              <p className="text-sm text-gray-500">$23,456.78 USD</p>
+              <p className="text-2xl font-bold">{`${wallet?.balance}`}</p>
+              <p className="text-sm text-gray-500">{`${wallet?.currency?.name}`}</p>
             </div>
-            <div className="space-y-1">
-              <p className="text-sm text-gray-500">24h Change</p>
-              <p className="text-lg font-semibold text-green-600">+0.234 ETH</p>
-              <p className="text-sm text-green-600">+2.45%</p>
-            </div>
+
             <div className="space-y-1">
               <p className="text-sm text-gray-500">First Transaction</p>
-              <p className="text-lg font-semibold">255 days ago</p>
-              <p className="text-sm text-gray-500">June 1, 2023</p>
+
+              {firstTransaction ? (
+                <>
+                  <p className="text-lg font-semibold">255 days ago</p>
+                  <p>
+                    {format(firstTransaction?.blockTimestamp, "dd MMMM yyyy")}
+                  </p>
+                </>
+              ) : (
+                <p className="text-lg font-semibold">No transactions yet</p>
+              )}
+            </div>
+
+            <div className="space-y-1">
+              <p className="text-sm text-gray-500">Wallet type</p>
+              <p className="text-2xl font-bold">{`${wallet?.type}`}</p>
             </div>
           </div>
         </CardContent>
@@ -31,37 +49,77 @@ export default function SectionWalletDetails() {
         <CardContent className="pt-6">
           <h3 className="text-lg font-medium mb-4">Recent Activity</h3>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-green-100 rounded-full">
-                  <ArrowDownRight className="h-5 w-5 text-green-600" />
+            {recentTransactions && recentTransactions.length > 0 ? (
+              recentTransactions.map((transaction) => (
+                <div
+                  key={transaction.hash}
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <div className="flex items-center gap-3">
+                    <div
+                      className={`p-2 rounded-full ${
+                        transaction.sourceWallet?.address === wallet?.address
+                          ? "bg-red-100"
+                          : "bg-green-100"
+                      }`}
+                    >
+                      {transaction.sourceWallet?.address === wallet?.address ? (
+                        <ArrowUpRight className="h-5 w-5 text-red-600" />
+                      ) : (
+                        <ArrowDownRight className="h-5 w-5 text-green-600" />
+                      )}
+                    </div>
+                    <div>
+                      <p className="font-medium">
+                        {transaction.sourceWallet?.address === wallet?.address
+                          ? "Sent"
+                          : "Received"}
+                      </p>
+                      <p className="text-sm text-gray-500">
+                        {transaction.sourceWallet?.address === wallet?.address
+                          ? `To: ${transaction.destinationWallet?.address?.slice(
+                              0,
+                              6
+                            )}...${transaction.destinationWallet?.address?.slice(
+                              -4
+                            )}`
+                          : `From: ${transaction.sourceWallet?.address?.slice(
+                              0,
+                              6
+                            )}...${transaction.sourceWallet?.address?.slice(
+                              -4
+                            )}`}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium">
+                      {transaction.value} {wallet?.currency?.symbol}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      {formatDistanceToNow(
+                        new Date(transaction.blockTimestamp),
+                        {
+                          addSuffix: true,
+                        }
+                      )}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-medium">Received</p>
-                  <p className="text-sm text-gray-500">From: 0x742d...f44e</p>
+              ))
+            ) : (
+              <div className="flex flex-col items-center justify-center py-8 text-center">
+                <div className="bg-gray-100 p-4 rounded-full mb-4">
+                  <ArrowDownRight className="h-6 w-6 text-gray-400" />
                 </div>
+                <h4 className="text-lg font-medium text-gray-900">
+                  No Recent Transactions
+                </h4>
+                <p className="text-sm text-gray-500 mt-1">
+                  This wallet hasn't made any transactions yet
+                </p>
               </div>
-              <div className="text-right">
-                <p className="font-medium">0.5 ETH</p>
-                <p className="text-sm text-gray-500">2 hours ago</p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-red-100 rounded-full">
-                  <ArrowUpRight className="h-5 w-5 text-red-600" />
-                </div>
-                <div>
-                  <p className="font-medium">Sent</p>
-                  <p className="text-sm text-gray-500">To: 0x123...a89b</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="font-medium">1.2 ETH</p>
-                <p className="text-sm text-gray-500">5 hours ago</p>
-              </div>
-            </div>
+            )}
           </div>
         </CardContent>
       </Card>

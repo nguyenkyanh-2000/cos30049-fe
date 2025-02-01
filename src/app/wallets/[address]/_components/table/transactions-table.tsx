@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -31,12 +30,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { RefreshCw, Search } from "lucide-react";
+import { ArrowDown, ArrowUp, RefreshCw, Search } from "lucide-react";
 import { DropdownMenuContent } from "@radix-ui/react-dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { TransactionDetailDialog } from "../transaction-detail-dialog";
 
 const filterIds = ["transactionHash", "destinationAddress"];
+const orderIds = ["blockTimestamp"];
 
 export function TransactionsTable() {
   const { address } = useParams<{ address: string }>();
@@ -47,17 +46,17 @@ export function TransactionsTable() {
   const [filters, setFilters] = useState<{
     transactionHash: string;
     destinationAddress: string;
+    createdAtOrder: "ASC" | "DESC";
   }>({
     transactionHash: "",
     destinationAddress: "",
+    createdAtOrder: "DESC",
   });
   const [data, setData] = useState<{
     transactions: TransactionDto[];
     pageCount: number;
     rowCount: number;
   }>();
-  const [selectedTransaction, setSelectedTransaction] =
-    useState<TransactionDto | null>(null);
 
   const table = useReactTable({
     data: data?.transactions || [],
@@ -78,7 +77,10 @@ export function TransactionsTable() {
       destinationAddress: formData.get("destinationAddress") as string,
     };
 
-    setFilters(newFilters);
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      ...newFilters,
+    }));
   };
 
   const handleRefresh = (id: string) => {
@@ -103,6 +105,10 @@ export function TransactionsTable() {
 
       if (filters.destinationAddress) {
         searchParams.append("dstAddress", filters.destinationAddress.trim());
+      }
+
+      if (filters.createdAtOrder) {
+        searchParams.append("createdAtOrder", filters.createdAtOrder);
       }
 
       const url = `${
@@ -186,6 +192,29 @@ export function TransactionsTable() {
                               </button>
                             </>
                           ) : null}
+                          {
+                            // Add sorting icons
+                            orderIds.includes(header.id) ? (
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setFilters((prevFilters) => ({
+                                    ...prevFilters,
+                                    createdAtOrder:
+                                      prevFilters.createdAtOrder === "ASC"
+                                        ? "DESC"
+                                        : "ASC",
+                                  }));
+                                }}
+                              >
+                                {filters.createdAtOrder === "ASC" ? (
+                                  <ArrowDown className="h-4 w-4" />
+                                ) : (
+                                  <ArrowUp className="h-4 w-4" />
+                                )}
+                              </button>
+                            ) : null
+                          }
                         </div>
                       </TableHead>
                     );
@@ -201,7 +230,6 @@ export function TransactionsTable() {
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
                     className="cursor-pointer hover:bg-slate-100"
-                    onClick={() => setSelectedTransaction(row.original)}
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell

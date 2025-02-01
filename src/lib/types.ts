@@ -84,6 +84,23 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/wallets/{address}/details": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get a wallet and its details based on the input address */
+        get: operations["WalletController_getWalletDetails"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/wallets/{address}/transactions": {
         parameters: {
             query?: never;
@@ -208,6 +225,11 @@ export interface components {
             sourceWallet?: components["schemas"]["WalletDto"];
             destinationWallet?: components["schemas"]["WalletDto"];
             currency?: components["schemas"]["CurrencyDto"];
+        };
+        GetWalletDetailsOutput: {
+            wallet: components["schemas"]["WalletDto"] | null;
+            recentTransactions: components["schemas"]["TransactionDto"][];
+            firstTransaction: components["schemas"]["TransactionDto"] | null;
         };
         GetWalletTransactionsOuput: {
             transactions: components["schemas"]["TransactionDto"][];
@@ -371,6 +393,44 @@ export interface operations {
                         /** @default 200 */
                         statusCode: number;
                         data?: components["schemas"]["WalletDto"];
+                    };
+                };
+            };
+            500: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        statusCode?: number;
+                        message?: string;
+                        error?: string;
+                    };
+                };
+            };
+        };
+    };
+    WalletController_getWalletDetails: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                address: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        message?: string;
+                        /** @default 200 */
+                        statusCode: number;
+                        data?: components["schemas"]["GetWalletDetailsOutput"];
                     };
                 };
             };

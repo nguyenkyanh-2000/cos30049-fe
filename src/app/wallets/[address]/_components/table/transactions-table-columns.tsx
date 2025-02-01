@@ -1,7 +1,7 @@
 "use client";
 
 import { TransactionDto } from "@/app/_api-types/transactions";
-import { ColumnDef, HeaderContext } from "@tanstack/react-table";
+import { ColumnDef } from "@tanstack/react-table";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,9 +11,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { MoreHorizontal, Search } from "lucide-react";
+import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { TransactionDetailDialog } from "../transaction-detail-dialog";
+import { format } from "date-fns";
 
 export const transactionsTableColumn: ColumnDef<TransactionDto>[] = [
   {
@@ -26,14 +27,27 @@ export const transactionsTableColumn: ColumnDef<TransactionDto>[] = [
   {
     accessorFn: (row) => row.hash,
     id: "transactionHash",
-    size: 400,
+    size: 350,
     header: () => <span className="font-bold">Transaction Hash</span>,
   },
   {
     accessorFn: (row) => row.destinationWallet?.address,
     id: "destinationAddress",
-    size: 300,
+    size: 250,
     header: () => <span className="font-bold">Destination Address</span>,
+  },
+  {
+    accessorFn: (row) => row.blockTimestamp,
+    id: "blockTimestamp",
+    size: 150,
+    header: () => <span className="font-bold">Block Timestamp</span>,
+    cell: (props) => {
+      const date = format(
+        props.row.original.blockTimestamp,
+        "HH:mm:ss, dd MMMM yyyy"
+      );
+      return date;
+    },
   },
   {
     id: "actions",

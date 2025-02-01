@@ -1,11 +1,18 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SectionWalletDetails from "./section-wallet-details";
 import SectionWalletNeighbors from "./section-wallet-neighbors";
-import { WalletDto } from "@/app/_api-types/wallets";
+import { WalletDetailsDto } from "@/app/_api-types/wallets";
 import { ReactFlowProvider } from "@xyflow/react";
 import { TransactionsTable } from "./table/transactions-table";
+import { notFound } from "next/navigation";
 
-export default function SectionWallet({ wallet }: { wallet: WalletDto }) {
+export default function SectionWallet({ data }: { data: WalletDetailsDto }) {
+  const { wallet } = data;
+
+  if (!wallet) {
+    notFound();
+  }
+
   return (
     <div className="container mx-auto px-5 py-12 mt-20 space-y-12">
       {/* Header */}
@@ -37,7 +44,7 @@ export default function SectionWallet({ wallet }: { wallet: WalletDto }) {
           forceMount
           className="data-[state=inactive]:hidden"
         >
-          <SectionWalletDetails />
+          <SectionWalletDetails data={data} />
         </TabsContent>
 
         {/* Neighbors Tab Content */}
