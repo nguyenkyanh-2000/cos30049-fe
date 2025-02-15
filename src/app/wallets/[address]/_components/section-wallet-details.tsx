@@ -3,6 +3,13 @@ import { Card, CardContent } from "@/components/ui/card";
 import { format, formatDistanceToNow } from "date-fns";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 
+// Helper function to calculate days difference between now and a given timestamp
+function getDaysAgo(timestamp: Date): number {
+  const now = new Date();
+  const diffTime = now.getTime() - timestamp.getTime();
+  return Math.floor(diffTime / (1000 * 60 * 60 * 24));
+}
+
 export default function SectionWalletDetails({
   data,
 }: {
@@ -27,7 +34,10 @@ export default function SectionWalletDetails({
 
               {firstTransaction ? (
                 <>
-                  <p className="text-lg font-semibold">255 days ago</p>
+                  <p className="text-lg font-semibold">
+                    {getDaysAgo(new Date(firstTransaction.blockTimestamp))} days
+                    ago
+                  </p>
                   <p>
                     {format(firstTransaction?.blockTimestamp, "dd MMMM yyyy")}
                   </p>
