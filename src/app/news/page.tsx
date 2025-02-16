@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useRef, useState } from "react";
 import Header from "../_components/section-header";
 import Footer from "../_components/section-footer";
 import {
@@ -15,15 +17,6 @@ import { ArrowRight } from "lucide-react";
 const newsItems = [
   {
     id: 1,
-    title: "Ethereum 2.0 Shows Promising Results",
-    preview:
-      "The latest network upgrade has significantly reduced energy consumption while improving transaction speeds...",
-    timeAgo: "1 hour ago",
-    link: "/news/ethereum-upgrade",
-    image: "/images/news/latest-news-1.png",
-  },
-  {
-    id: 2,
     title: "New Crypto Regulations in EU",
     preview:
       "European Union announces comprehensive framework for cryptocurrency regulation...",
@@ -32,7 +25,7 @@ const newsItems = [
     image: "images/news/latest-news-2.jpg",
   },
   {
-    id: 3,
+    id: 2,
     title: "Major Bank Adopts Blockchain",
     preview:
       "Leading financial institution implements blockchain technology for cross-border payments...",
@@ -40,9 +33,66 @@ const newsItems = [
     link: "/news/bank-blockchain",
     image: "images/news/latest-news-3.jpg",
   },
+  {
+    id: 3,
+    title: "Bitcoin Reaches New All-Time High",
+    preview:
+      "Bitcoin price surges to a new all-time high, driven by increased institutional investment...",
+    timeAgo: "2 days ago",
+    link: "/news/bitcoin-high",
+    image: "images/news/latest-news-4.png",
+  },
+  {
+    id: 4,
+    title: "DeFi Market Continues to Grow",
+    preview:
+      "Decentralized Finance (DeFi) market continues to expand with new innovative projects...",
+    timeAgo: "3 days ago",
+    link: "/news/defi-growth",
+    image: "images/news/latest-news-5.jpg",
+  },
+  {
+    id: 5,
+    title: "Ethereum 2.0 Shows Promising Results",
+    preview:
+      "The latest network upgrade has significantly reduced energy consumption while improving transaction speeds...",
+    timeAgo: "1 hour ago",
+    link: "/news/ethereum-upgrade",
+    image: "/images/news/latest-news-1.png",
+  },
 ];
 
 export default function NewsPage() {
+  const carouselRef = useRef<any>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const scrollNext = () => {
+    if (carouselRef.current) {
+      const nextButton = carouselRef.current.querySelector("[data-carousel-next]");
+      if (nextButton) {
+        nextButton.click();
+      }
+    }
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % newsItems.length);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      scrollNext();
+    }, 3000); // Auto-scroll interval of 3 seconds
+
+    return () => clearInterval(interval); // Clean up on component unmount
+  }, []);
+
+  useEffect(() => {
+    if (currentIndex === 0 && carouselRef.current) {
+      const previousButton = carouselRef.current.querySelector("[data-carousel-previous]");
+      if (previousButton) {
+        previousButton.click();
+      }
+    }
+  }, [currentIndex]);
+
   return (
     <main className="min-h-screen overflow-x-hidden">
       <Header />
@@ -78,6 +128,7 @@ export default function NewsPage() {
           <h3 className="text-2xl md:text-4xl font-bold">Latest News</h3>
 
           <Carousel
+            ref={carouselRef}
             opts={{
               align: "start",
             }}
@@ -87,25 +138,25 @@ export default function NewsPage() {
               {newsItems.map((news) => (
                 <CarouselItem
                   key={news.id}
-                  className="md:basis-2/3 lg:basis-1/2"
+                  className="pl-4 md:basis-1/2 lg:basis-1/2"
                 >
-                  <Card className="border border-border/50">
+                  <Card className="border border-border/50 h-full">
                     <CardContent className="p-6 space-y-4">
-                      <h4 className="text-base sm:text-2xl font-semibold">
+                      <h4 className="text-base sm:text-2xl font-semibold line-clamp-2">
                         {news.title}
                       </h4>
-                      <div className="relative w-full h-[300px] aspect-video rounded-lg overflow-hidden">
+                      <div className="relative w-full h-48 sm:h-64 rounded-lg overflow-hidden">
                         <img
                           src={news.image}
                           alt={news.title}
                           className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
                         />
                       </div>
-                      <p className="text-xs sm:text-base text-muted-foreground line-clamp-1">
+                      <p className="text-xs sm:text-base text-muted-foreground line-clamp-2">
                         {news.preview}
                       </p>
                     </CardContent>
-                    <CardFooter className="p-5 flex justify-between items-center border-t">
+                    <CardFooter className="p-5 flex justify-between items-center border-t mt-auto">
                       <span className="text-sm text-muted-foreground">
                         {news.timeAgo}
                       </span>
@@ -121,8 +172,8 @@ export default function NewsPage() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious data-carousel-previous />
+            <CarouselNext data-carousel-next />
           </Carousel>
         </div>
       </div>
