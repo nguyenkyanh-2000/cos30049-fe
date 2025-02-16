@@ -25,7 +25,7 @@ export default function SectionWalletDetails({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 w-full">
             <div className="space-y-1">
               <p className="text-sm text-gray-500">Total Balance</p>
-              <p className="text-2xl font-bold">{`${wallet?.balance}`}</p>
+              <p className="text-lg font-semibold">{`${wallet?.balance}`}</p>
               <p className="text-sm text-gray-500">{`${wallet?.currency?.name}`}</p>
             </div>
 
@@ -38,7 +38,7 @@ export default function SectionWalletDetails({
                     {getDaysAgo(new Date(firstTransaction.blockTimestamp))} days
                     ago
                   </p>
-                  <p>
+                  <p className="text-sm text-gray-500">
                     {format(firstTransaction?.blockTimestamp, "dd MMMM yyyy")}
                   </p>
                 </>
@@ -49,7 +49,7 @@ export default function SectionWalletDetails({
 
             <div className="space-y-1">
               <p className="text-sm text-gray-500">Wallet type</p>
-              <p className="text-2xl font-bold">{`${wallet?.type}`}</p>
+              <p className="text-lg font-semibold">{`${wallet?.type}`}</p>
             </div>
           </div>
         </CardContent>
