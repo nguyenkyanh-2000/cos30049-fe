@@ -8,7 +8,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="fixed px-20 mx-auto left-0 right-0 top-0 z-50 bg-background/50 backdrop-blur-sm px-10">
+    <header className="fixed w-full px-20 mx-auto left-0 right-0 top-0 z-50 bg-background/50 backdrop-blur-sm px-10">
       <div className="flex h-20 items-center justify-between">
         {/* Logo */}
         <Link href="/" className="font-poppins font-black tracking-tighter">

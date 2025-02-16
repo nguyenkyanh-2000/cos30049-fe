@@ -149,9 +149,15 @@ export function TransactionsTable() {
 
   return (
     <div className="flex flex-col gap-4">
-      <ScrollArea className="h-[400px] w-full border rounded-md overflow-x-auto">
-        <form action={handleSubmitSearchQueries}>
-          <Table className="min-w-[800px]">
+      <div className="h-[400px] w-full border rounded-md overflow-x-auto">
+        <form
+          className="overflow-hidden"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmitSearchQueries(new FormData(e.currentTarget));
+          }}
+        >
+          <Table className="min-w-full">
             <TableHeader className="z-10">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
@@ -215,7 +221,7 @@ export function TransactionsTable() {
                                       prevFilters.createdAtOrder === "ASC"
                                         ? "DESC"
                                         : "ASC",
-                                  })); 
+                                  }));
                                 }}
                               >
                                 {filters.createdAtOrder === "ASC" ? (
@@ -249,7 +255,7 @@ export function TransactionsTable() {
                           minWidth: cell.column.columnDef.size,
                           maxWidth: cell.column.columnDef.size,
                         }}
-                        className="text-ellipsis overflow-hidden"
+                        className="text-ellipsis overflow-hidden whitespace-nowrap"
                       >
                         {flexRender(
                           cell.column.columnDef.cell,
@@ -272,7 +278,7 @@ export function TransactionsTable() {
             </TableBody>
           </Table>
         </form>
-      </ScrollArea>
+      </div>
 
       <DataTablePagination table={table} />
     </div>

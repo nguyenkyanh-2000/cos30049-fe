@@ -281,7 +281,7 @@ const LandingPage = () => {
 
       {/* Pricing Plans */}
       <FadeInSection>
-        <section className="py-20 bg-background/50 backdrop-blur-sm">
+        <section id="pricing" className="py-20 bg-background/50 backdrop-blur-sm">
           <div className="container mx-auto px-4">
             <h2 className="text-4xl font-bold text-center mb-16">
               Trading Plans

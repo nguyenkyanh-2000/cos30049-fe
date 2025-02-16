@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import Link from 'next/link';
 import React from "react";
 
 // Hero component for the main section of the page
@@ -21,7 +22,9 @@ export default async function Hero() {
         </p>
 
         {/* Call to action button */}
-        <Button>Get started</Button>
+        <Link href="wallets" passHref>
+          <Button>Get started</Button>
+        </Link>
       </div>
 
       {/* Decorative animated blobs */}

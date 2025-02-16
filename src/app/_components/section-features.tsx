@@ -1,6 +1,7 @@
 // Import necessary modules
 import React from "react";
 import { ArrowRight, Shield, Zap } from "lucide-react";
+import Link from 'next/link';
 
 // Define the CTASection component
 const CTASection = () => {
@@ -46,13 +47,17 @@ const CTASection = () => {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/wallets" passHref>
                 <button className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-medium hover:bg-primary/90 transition-colors flex items-center justify-center">
                   Get Started Now
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </button>
+              </Link>
+              <Link href="/#pricing" passHref>
                 <button className="px-8 py-4 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-700 transition-colors">
                   View Pricing Plans
                 </button>
+              </Link>
               </div>
             </div>
 
