@@ -34,7 +34,6 @@ const InfoField = ({
     </div>
   </div>
 );
-
 export function TransactionDetailDialog({
   transaction,
   children,
@@ -44,26 +43,29 @@ export function TransactionDetailDialog({
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="w-[95vw] max-w-[700px] p-0">
+      <DialogContent className="max-w-[700px] p-0">
         <DialogHeader className="px-6 py-4 border-b bg-gradient-to-r from-blue-50 to-indigo-50">
           <DialogTitle className="text-lg font-semibold text-gray-900 flex items-center gap-2 flex-wrap">
             Transaction Details
-            <Badge variant="outline" className="bg-blue-50">
+            <Badge variant="outline" className="bg-blue-50 text-sm">
               Block #{transaction.blockNumber}
             </Badge>
           </DialogTitle>
         </DialogHeader>
 
         <ScrollArea className="max-h-[calc(100vh-16rem)]">
-          <div className="p-6 space-y-8">
+          <div className="max-w-sm sm:max-w-full p-8 flex flex-col gap-6">
             {/* Transaction Identification */}
-            <div className="space-y-4">
+            <div>
               <h3 className="text-sm font-semibold text-gray-700">
                 Transaction Identity
               </h3>
-              <InfoField label="Hash" value={transaction.hash} />
+              <InfoField
+                label="Hash"
+                value={<span className="break-all">{transaction.hash}</span>}
+              />
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 ">
                 <InfoField
                   label="Block Number"
                   value={transaction.blockNumber}
@@ -76,11 +78,11 @@ export function TransactionDetailDialog({
             </div>
 
             {/* Transaction Status */}
-            <div className="space-y-4">
+            <div>
               <h3 className="text-sm font-semibold text-gray-700">
                 Status Information
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <InfoField
                   label="Status"
                   value={
@@ -100,7 +102,7 @@ export function TransactionDetailDialog({
             </div>
 
             {/* Addresses */}
-            <div className="space-y-4">
+            <div>
               <h3 className="text-sm font-semibold text-gray-700">
                 Address Information
               </h3>
@@ -109,11 +111,14 @@ export function TransactionDetailDialog({
                 value={
                   <div className="flex items-center gap-2 w-full">
                     <div className="h-2 w-2 rounded-full bg-red-500" />
-                    <div className="flex items-center justify-between w-full">
-                      <span>{transaction.sourceWallet?.address}</span>
+                    <div className="flex items-center justify-between w-full gap-2">
+                      <span className="truncate whitespace-nowrap">
+                        {transaction.sourceWallet?.address}
+                      </span>
                       <Link
                         href={`/wallets/${transaction.sourceWallet?.address}`}
                         onClick={() => setIsOpen(false)}
+                        className="flex-shrink-0"
                       >
                         <ArrowRight className="w-4 h-4 text-gray-500" />
                       </Link>
@@ -126,11 +131,14 @@ export function TransactionDetailDialog({
                 value={
                   <div className="flex items-center gap-2 w-full">
                     <div className="h-2 w-2 rounded-full bg-green-500" />
-                    <div className="flex items-center justify-between w-full">
-                      <span>{transaction.destinationWallet?.address}</span>
+                    <div className="flex items-center justify-between w-full gap-2">
+                      <span className="truncate whitespace-nowrap">
+                        {transaction.destinationWallet?.address}
+                      </span>
                       <Link
                         href={`/wallets/${transaction.destinationWallet?.address}`}
                         onClick={() => setIsOpen(false)}
+                        className="flex-shrink-0"
                       >
                         <ArrowRight className="w-4 h-4 text-gray-500" />
                       </Link>
@@ -141,29 +149,29 @@ export function TransactionDetailDialog({
             </div>
 
             {/* Value Information */}
-            <div className="space-y-4">
+            <div>
               <h3 className="text-sm font-semibold text-gray-700">
                 Value & Gas Information
               </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-100">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                <div className="p-3 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border border-blue-100 sm:p-4">
                   <label className="text-sm font-medium text-gray-500 block mb-1">
                     Value
                   </label>
-                  <div className="text-lg font-semibold text-blue-600">
+                  <div className="text-base font-semibold text-blue-600 sm:text-lg">
                     {transaction.value}
                   </div>
                 </div>
-                <div className="p-4 bg-gradient-to-br from-gray-50 to-slate-50 rounded-lg border border-gray-200">
+                <div className="p-3 bg-gradient-to-br from-gray-50 to-slate-50 rounded-lg border border-gray-200 sm:p-4">
                   <label className="text-sm font-medium text-gray-500 block mb-1">
                     Gas Price
                   </label>
-                  <div className="text-lg font-semibold text-gray-700">
+                  <div className="text-base font-semibold text-gray-700 sm:text-lg">
                     {transaction.gasPrice}
                   </div>
                 </div>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <InfoField
                   label="Gas Used"
                   value={`${transaction.gasUsed} units`}
