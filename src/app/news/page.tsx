@@ -11,6 +11,7 @@ import {
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 
+// Sample news items data
 const newsItems = [
   {
     id: 1,

@@ -1,5 +1,6 @@
 "use client";
 
+// CountUpAnimation component: Animates a number from 0 to the specified end value over a given duration.
 import React, { useEffect, useState } from "react";
 import {
   ArrowRight,
@@ -12,6 +13,7 @@ import {
   Clock,
 } from "lucide-react";
 
+// CountUpAnimation component: Animates a number from 0 to the specified end value over a given duration.
 const CountUpAnimation = ({
   end,
   duration = 2000,
@@ -40,7 +42,9 @@ const CountUpAnimation = ({
   return count;
 };
 
+// LandingPage component: The main landing page component that displays the page content.
 const LandingPage = () => {
+  // Data for the Why Choose Us section
   const whyChooseUs = [
     {
       title: "24/7",
@@ -68,6 +72,7 @@ const LandingPage = () => {
     },
   ];
 
+  // Data for the Step Guide section
   const steps = [
     {
       number: "1",
@@ -91,12 +96,14 @@ const LandingPage = () => {
     },
   ];
 
+  // Data for the Mission section
   const missionStats = [
     { value: 100, symbol: "+", label: "Supported Cryptocurrencies" },
     { value: 250, symbol: "K", label: "Active Traders" },
     { value: 99, symbol: ".9%", label: "Uptime Guarantee" },
   ];
 
+  // Data for the Pricing Plans section
   const plans = [
     {
       name: "Basic",

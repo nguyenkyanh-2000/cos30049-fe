@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import { WalletDetailsDto } from "@/app/_api-types/wallets";
 import { Card, CardContent } from "@/components/ui/card";
 import { format, formatDistanceToNow } from "date-fns";
@@ -10,15 +11,18 @@ function getDaysAgo(timestamp: Date): number {
   return Math.floor(diffTime / (1000 * 60 * 60 * 24));
 }
 
+// Define the SectionWalletDetails component
 export default function SectionWalletDetails({
   data,
 }: {
   data: WalletDetailsDto;
 }) {
+  // Destructure data object to extract wallet, firstTransaction, and recentTransactions
   const { wallet, firstTransaction, recentTransactions } = data;
 
   return (
     <div className="flex flex-col gap-4">
+      {/* Card for Balance Overview */}
       <Card>
         <CardContent className="pt-6">
           <h3 className="text-lg font-medium mb-4">Balance Overview</h3>
@@ -31,7 +35,7 @@ export default function SectionWalletDetails({
 
             <div className="space-y-1">
               <p className="text-sm text-gray-500">First Transaction</p>
-
+              {/* Display first transaction details if available */}
               {firstTransaction ? (
                 <>
                   <p className="text-lg font-semibold">
@@ -55,10 +59,12 @@ export default function SectionWalletDetails({
         </CardContent>
       </Card>
 
+      {/* Card for Recent Activity */}
       <Card>
         <CardContent className="pt-6">
           <h3 className="text-lg font-medium mb-4">Recent Activity</h3>
           <div className="space-y-4">
+            {/* Display recent transactions if available */}
             {recentTransactions && recentTransactions.length > 0 ? (
               recentTransactions.map((transaction) => (
                 <div
@@ -120,6 +126,7 @@ export default function SectionWalletDetails({
                 </div>
               ))
             ) : (
+              // Display message if no recent transactions
               <div className="flex flex-col items-center justify-center py-8 text-center">
                 <div className="bg-gray-100 p-4 rounded-full mb-4">
                   <ArrowDownRight className="h-6 w-6 text-gray-400" />

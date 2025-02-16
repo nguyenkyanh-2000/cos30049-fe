@@ -1,7 +1,10 @@
+// Import necessary modules
 import React from "react";
 import { ArrowRight, Shield, Zap } from "lucide-react";
 
+// Define the CTASection component
 const CTASection = () => {
+  // Define the features to be displayed
   const features = [
     {
       icon: <Shield className="w-6 h-6" />,
@@ -89,4 +92,5 @@ const CTASection = () => {
   );
 };
 
+// Export the CTASection component
 export default CTASection;

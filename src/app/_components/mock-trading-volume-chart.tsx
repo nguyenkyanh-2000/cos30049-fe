@@ -1,3 +1,4 @@
+// Import necessary modules and components
 "use client";
 
 import { TrendingUp } from "lucide-react";
@@ -17,6 +18,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+
+// Define chart data
 const chartData = [
   { month: "January", bitcoin: 186 },
   { month: "February", bitcoin: 305 },
@@ -26,6 +29,7 @@ const chartData = [
   { month: "June", bitcoin: 214 },
 ];
 
+// Define chart configuration
 const chartConfig = {
   bitcoin: {
     label: "Bitcoin",
@@ -33,6 +37,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+// Define the MockTradingVolumeChart component
 export default function MockTradingVolumeChart() {
   return (
     <Card className="flex flex-col w-full h-full">
