@@ -5,9 +5,6 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
   },
   reactStrictMode: false,
-  experimental: {
-    ppr: "incremental",
-  },
   images: {
     remotePatterns: [
       {
