@@ -47,7 +47,7 @@ export const transactionsTableColumn: ColumnDef<TransactionDto>[] = [
       // Format the block timestamp
       const date = format(
         props.row.original.blockTimestamp,
-        "HH:mm:ss, dd MMMM yyyy"
+        "HH:mm, dd MMMM yyyy"
       );
       return date;
     },
