@@ -23,29 +23,23 @@ const SectionWallet = () => {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [wallets, setWallets] = useState<WalletDto[]>([]);
 
-  // Function to handle wallet search
-  const searchWallet = async (formData: FormData) => {
-    const searchQuery = formData.get("searchQuery") as string;
+  const [, action, pending] = useActionState(
+    async (
+      _previousState: ActionResult<SuccessGetWalletsResponse["data"]>,
+      values: FormData
+    ) => {
+      const response = await searchWallet(values);
+      setSearchQuery(values.get("searchQuery") as string);
+      if (response.success) {
+        setWallets(response.payload?.wallets || []);
+      } else {
+        setError(response.message || "An error occurred");
+      }
 
-  //   setSearchQuery(searchQuery);
-  //   const response = await fetch(
-  //     `${process.env.NEXT_PUBLIC_API_URL}/wallets?query=${searchQuery}`
-  //   );
-  //   const res = await response.json();
-
-  //   if (response.ok) {
-  //     const successData: SuccessGetWalletsResponse = res;
-
-  //     if (!successData.data?.wallets) {
-  //       return;
-  //     }
-
-  //     setWallets(successData.data.wallets);
-  //   } else {
-  //     const errorData: ErrorGetWalletsResponse = res;
-  //     setError(errorData.message || "An error occurred");
-  //   }
-  // };
+      return response;
+    },
+    initialState
+  );
 
   return (
     <section className="container mx-auto px-5 py-12 mt-20 flex flex-col gap-4 items-center">
@@ -80,11 +74,17 @@ const SectionWallet = () => {
         </form>
       </div>
 
-      {/* Wallets Display Section */}
-      <div className="rounded-xl border p-4 w-full mt-8">
-        {error && (
-          <div className="text-center text-red-500 font-semibold">{error}</div>
-        )}
+      {pending ? (
+        <div className="flex items-center justify-center rounded-xl border p-4 w-full mt-8 h-[400px]">
+          <LoaderCircle className="h-8 w-8 text-gray-500 animate-spin" />
+        </div>
+      ) : (
+        <div className="rounded-xl border p-4 w-full mt-8">
+          {error && (
+            <div className="text-center text-red-500 font-semibold">
+              {error}
+            </div>
+          )}
 
           {!searchQuery ? (
             <div className="flex flex-col items-center gap-4 h-[400px] justify-center w-full">
