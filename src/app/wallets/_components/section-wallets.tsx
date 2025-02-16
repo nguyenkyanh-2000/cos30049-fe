@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleHelp, Search, Wallet } from "lucide-react";
+import { CircleHelp, LoaderCircle, Search, Wallet } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
@@ -14,10 +14,12 @@ import { WalletCard } from "./wallet-card";
 
 const SectionWallet = () => {
   const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [wallets, setWallets] = useState<WalletDto[]>([]);
 
   const searchWallet = async (formData: FormData) => {
+    setLoading(true);
     const searchQuery = formData.get("searchQuery") as string;
 
     setSearchQuery(searchQuery);
@@ -38,6 +40,8 @@ const SectionWallet = () => {
       const errorData: ErrorGetWalletsResponse = res;
       setError(errorData.message || "An error occurred");
     }
+
+    setLoading(false);
   };
 
   return (
@@ -76,6 +80,12 @@ const SectionWallet = () => {
       <div className="rounded-xl border p-4 w-full mt-8">
         {error && (
           <div className="text-center text-red-500 font-semibold">{error}</div>
+        )}
+
+        {searchQuery && loading && (
+          <div className="flex flex-col items-center gap-4 h-[400px] justify-center w-full">
+            <LoaderCircle className="h-24 w-24 text-gray-500 animate-spin" />
+          </div>
         )}
 
         {!searchQuery ? (

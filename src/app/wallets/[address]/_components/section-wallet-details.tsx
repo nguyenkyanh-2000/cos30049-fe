@@ -63,7 +63,7 @@ export default function SectionWalletDetails({
               recentTransactions.map((transaction) => (
                 <div
                   key={transaction.hash}
-                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                  className="flex items-center justify-between p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors text-sm sm:text-base"
                 >
                   <div className="flex items-center gap-3">
                     <div
@@ -103,10 +103,12 @@ export default function SectionWalletDetails({
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium">
-                      {transaction.value} {wallet?.currency?.symbol}
+                    <p className="text-sm sm:text-base font-medium">
+                      {String(transaction.value).slice(0, 6)}...
+                      {String(transaction.value).slice(-4)}{" "}
+                      {wallet?.currency?.symbol}
                     </p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-xs sm:text-sm text-gray-500">
                       {formatDistanceToNow(
                         new Date(transaction.blockTimestamp),
                         {
