@@ -18,9 +18,9 @@ export default function SectionWallet({ data }: { data: WalletDetailsDto }) {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900">Wallet Details</h1>
-        <div className="flex items-center gap-2">
-          <span className="font-bold">Address:</span>
-          <p className="text-sm">{wallet.address}</p>
+        <div className="flex gap-2 pt-2">
+          <span className="font-bold -mt-0.5">Address:</span>
+          <p className="text-sm break-all">{wallet.address}</p>
         </div>
       </div>
 
