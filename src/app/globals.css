@@ -1,7 +1,9 @@
+/* Import Tailwind base, components, and utilities */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Custom animation delay utilities */
 @layer utilities {
   .animation-delay-2000 {
     animation-delay: 2000ms;
@@ -22,6 +24,7 @@
   src: url("/fonts/Figtree/Figtree-VariableFont_wght.ttf") format("truetype");
 }
 
+/* Poppins font-family with various styles and weights */
 @font-face {
   font-family: "Poppins";
   font-style: normal;
@@ -125,6 +128,7 @@
   src: url("/fonts/Poppins/Poppins-Black.ttf") format("truetype");
 }
 
+/* Define CSS variables for light and dark themes */
 @layer base {
   :root {
     --background: hsl(155, 36%, 100%);
@@ -183,6 +187,7 @@
   }
 }
 
+/* Apply base styles */
 @layer base {
   * {
     @apply border-border;

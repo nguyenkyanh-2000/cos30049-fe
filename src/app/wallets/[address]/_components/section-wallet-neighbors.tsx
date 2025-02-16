@@ -49,6 +49,7 @@ export default function SectionWalletNeighbors({
     useState<WalletNodeContextMenuProps | null>(null);
   const contextMenuRef = useRef<HTMLDivElement | null>(null);
 
+  // Handle node click to show context menu
   const onNodeClick: NodeMouseHandler<WalletNode> = useCallback(
     (event, node) => {
       setContextMenu({
@@ -58,6 +59,7 @@ export default function SectionWalletNeighbors({
     [setContextMenu]
   );
 
+  // Handle pane click to close context menu
   const onPaneClick = useCallback(
     (event: React.MouseEvent) => {
       // Prevent the context menu from closing when clicking on it
@@ -69,6 +71,7 @@ export default function SectionWalletNeighbors({
     [setContextMenu]
   );
 
+  // Prevent native context menu from showing on right-click
   const onPaneRightClick = useCallback(
     (event: React.MouseEvent | MouseEvent) => {
       event.preventDefault();
@@ -76,6 +79,7 @@ export default function SectionWalletNeighbors({
     []
   );
 
+  // Handle node right-click to update selected wallets and graph
   const onNodeRightClick: NodeMouseHandler<WalletNode> = useCallback(
     (event, node) => {
       // Prevent native context menu from showing
@@ -119,6 +123,7 @@ export default function SectionWalletNeighbors({
     [selectedWallets, level, setEdges, setNodes]
   );
 
+  // Refresh the graph to initial state
   const refreshGraph = () => {
     setNodes([
       {
@@ -133,6 +138,7 @@ export default function SectionWalletNeighbors({
     setContextMenu(null);
   };
 
+  // Fetch wallet neighbors on component mount and when selected wallets change
   useEffect(() => {
     setLoading(true);
 

@@ -1,21 +1,29 @@
+// Import the Config type from Tailwind CSS
 import type { Config } from "tailwindcss";
 
+// Export the Tailwind CSS configuration
 export default {
+  // Enable dark mode based on a class
   darkMode: ["class"],
+  // Specify the paths to all of the template files in the project
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-
+  // Define the theme configuration
   theme: {
+    // Set the default sans-serif font family
     fontFamily: {
       sans: ["Figtree", "sans-serif"],
     },
+    // Extend the default theme
     extend: {
+      // Add additional font families
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },
+      // Define custom colors using CSS variables
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -58,16 +66,19 @@ export default {
           "5": "var(--chart-5)",
         },
       },
+      // Define custom border radius values using CSS variables
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      // Define custom animations
       animation: {
         blob: "blob 4s infinite",
         blob2: "blob2 4s infinite",
         blob3: "blob3 4s infinite",
       },
+      // Define custom keyframes for animations
       keyframes: {
         blob: {
           "0%": {
@@ -114,6 +125,7 @@ export default {
       },
     },
   },
+  // Include the Tailwind CSS animate plugin
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

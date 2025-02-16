@@ -11,10 +11,11 @@ import {
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 
+// Sample news items data
 const newsItems = [
   {
     id: 1,
-    title: "Ethereum 2.0 Upgrade Shows Promising Results",
+    title: "Ethereum 2.0 Shows Promising Results",
     preview:
       "The latest network upgrade has significantly reduced energy consumption while improving transaction speeds...",
     timeAgo: "1 hour ago",
@@ -55,7 +56,7 @@ export default function NewsPage() {
 
         {/* Featured News */}
         <div className="space-y-8 text-center">
-          <h1 className="text-7xl font-bold">
+          <h1 className="text-3xl md:text-7xl font-bold">
             Bitcoin Price Milestone or Volatility
           </h1>
           <h2 className="text-xl text-muted-foreground">
@@ -74,7 +75,7 @@ export default function NewsPage() {
 
         {/* Latest News Section */}
         <div className="space-y-8">
-          <h3 className="text-4xl font-bold">Latest News</h3>
+          <h3 className="text-2xl md:text-4xl font-bold">Latest News</h3>
 
           <Carousel
             opts={{
@@ -90,7 +91,9 @@ export default function NewsPage() {
                 >
                   <Card className="border border-border/50">
                     <CardContent className="p-6 space-y-4">
-                      <h4 className="text-2xl font-semibold">{news.title}</h4>
+                      <h4 className="text-base sm:text-2xl font-semibold">
+                        {news.title}
+                      </h4>
                       <div className="relative w-full h-[300px] aspect-video rounded-lg overflow-hidden">
                         <img
                           src={news.image}
@@ -98,7 +101,7 @@ export default function NewsPage() {
                           className="object-cover w-full h-full hover:scale-105 transition-transform duration-300"
                         />
                       </div>
-                      <p className="text-muted-foreground line-clamp-1">
+                      <p className="text-xs sm:text-base text-muted-foreground line-clamp-1">
                         {news.preview}
                       </p>
                     </CardContent>

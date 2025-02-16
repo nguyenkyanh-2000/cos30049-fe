@@ -1,5 +1,6 @@
 "use client";
 
+// Import necessary libraries and components
 import { Pie, PieChart } from "recharts";
 
 import {
@@ -17,6 +18,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
+
+// Sample data for the pie chart
 const chartData = [
   { coin: "bitcoin", amount: 275, fill: "var(--color-bitcoin)" },
   { coin: "eth", amount: 200, fill: "var(--color-eth)" },
@@ -25,6 +28,7 @@ const chartData = [
   { coin: "other", amount: 90, fill: "var(--color-other)" },
 ];
 
+// Configuration for the chart, including labels and colors
 const chartConfig = {
   amount: {
     label: "Coin",
@@ -51,20 +55,26 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+// Main component for the mock expenditure chart
 export default function MockExpenditureChart() {
   return (
     <Card className="flex flex-col w-full h-full">
+      {/*Card header with title and description*/}
       <CardHeader>
         <CardTitle>Porfolio allocation</CardTitle>
         <CardDescription>January - June 2024</CardDescription>
       </CardHeader>
       <CardContent className="h-full">
+        {/*Chart container with pie chart, legend and tooltip*/}
         <ChartContainer className="h-full w-full" config={chartConfig}>
           <PieChart>
+            {/*Pie chart with data and data key*/}
             <Pie data={chartData} dataKey="amount" />
+            {/*Chart tooltip with content*/}
             <ChartTooltip
               content={<ChartTooltipContent nameKey="coin" hideLabel />}
             />
+            {/*Chart legend with content*/}
             <ChartLegend
               content={<ChartLegendContent nameKey="coin" />}
               className="-translate-y-2 flex-wrap gap-2 [&>*]:basis-1/4 [&>*]:justify-center"
