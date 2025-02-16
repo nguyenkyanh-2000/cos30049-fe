@@ -1,5 +1,6 @@
 "use client";
 
+// Import necessary modules and components
 import {
   flexRender,
   getCoreRowModel,
@@ -34,11 +35,15 @@ import { ArrowDown, ArrowUp, RefreshCw, Search } from "lucide-react";
 import { DropdownMenuContent } from "@radix-ui/react-dropdown-menu";
 import { Input } from "@/components/ui/input";
 
+// Define filter and order IDs
 const filterIds = ["transactionHash", "destinationAddress"];
 const orderIds = ["blockTimestamp"];
 
 export function TransactionsTable() {
+  // Get the wallet address from the URL parameters
   const { address } = useParams<{ address: string }>();
+
+  // State for pagination and filters
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
@@ -52,12 +57,15 @@ export function TransactionsTable() {
     destinationAddress: "",
     createdAtOrder: "DESC",
   });
+
+  // State for storing fetched data
   const [data, setData] = useState<{
     transactions: TransactionDto[];
     pageCount: number;
     rowCount: number;
   }>();
 
+  // Initialize the table with data and configurations
   const table = useReactTable({
     data: data?.transactions || [],
     rowCount: data?.rowCount || 0,
@@ -71,6 +79,7 @@ export function TransactionsTable() {
     getFilteredRowModel: getFilteredRowModel(),
   });
 
+  // Handle search query submission
   const handleSubmitSearchQueries = (formData: FormData) => {
     const newFilters = {
       transactionHash: formData.get("transactionHash") as string,
@@ -83,6 +92,7 @@ export function TransactionsTable() {
     }));
   };
 
+  // Handle refresh action for filters
   const handleRefresh = (id: string) => {
     setFilters((prevFilters) => ({
       ...prevFilters,
@@ -90,6 +100,7 @@ export function TransactionsTable() {
     }));
   };
 
+  // Fetch transactions data based on filters and pagination
   useEffect(() => {
     const fetchTransactions = async () => {
       const searchParams = new URLSearchParams({
@@ -204,7 +215,7 @@ export function TransactionsTable() {
                                       prevFilters.createdAtOrder === "ASC"
                                         ? "DESC"
                                         : "ASC",
-                                  }));
+                                  })); 
                                 }}
                               >
                                 {filters.createdAtOrder === "ASC" ? (

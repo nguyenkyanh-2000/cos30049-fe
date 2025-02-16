@@ -3,8 +3,10 @@ import Image from "next/image";
 import { Handle, Position, type Node, type NodeProps } from "@xyflow/react";
 import { WalletDto } from "@/app/_api-types/wallets";
 
+// Define the WalletNode type based on Node with WalletDto data
 export type WalletNode = Node<WalletDto>;
 
+// WalletNode component to display wallet information in a graph node
 export default function WalletNode({ data, selected }: NodeProps<WalletNode>) {
   return (
     <>

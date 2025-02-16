@@ -1,3 +1,4 @@
+// Import necessary modules and components
 import { type Table } from "@tanstack/react-table";
 import {
   ChevronLeft,
@@ -15,17 +16,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+// Define the props for DataTablePagination component
 interface DataTablePaginationProps<TData> {
   table: Table<TData>;
   pageSizeOptions?: number[];
 }
 
+// DataTablePagination component definition
 export function DataTablePagination<TData>({
   table,
   pageSizeOptions = [10, 20, 30, 40, 50],
 }: DataTablePaginationProps<TData>) {
   return (
     <div className="flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8">
+      {/* Rows per page selector */}
       <div className="flex items-center space-x-2">
         <p className="whitespace-nowrap text-sm font-medium">Rows per page</p>
         <Select
@@ -46,6 +50,7 @@ export function DataTablePagination<TData>({
           </SelectContent>
         </Select>
       </div>
+      {/* Current page indicator */}
       <div className="flex items-center justify-center text-sm font-medium">
         {`Page ${
           table.getPageCount() > 0
@@ -54,6 +59,7 @@ export function DataTablePagination<TData>({
         } of
         ${table.getPageCount()}`}
       </div>
+      {/* Pagination controls */}
       <div className="flex items-center space-x-2">
         <Button
           aria-label="Go to first page"

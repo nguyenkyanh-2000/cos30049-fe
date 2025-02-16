@@ -456,6 +456,7 @@ export interface operations {
                 page?: number;
                 transactionHash?: string;
                 dstAddress?: string;
+                createdAtOrder?: "ASC" | "DESC";
             };
             header?: never;
             path: {

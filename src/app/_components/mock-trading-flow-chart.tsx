@@ -1,5 +1,6 @@
 "use client";
 
+// Import necessary libraries and components
 import * as React from "react";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
@@ -25,6 +26,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
+// Sample data for the trading flow chart
 const chartData = [
   { date: "2024-04-01", inflow: 222, outflow: 150 },
   { date: "2024-04-02", inflow: 97, outflow: 180 },
@@ -119,6 +122,7 @@ const chartData = [
   { date: "2024-06-30", inflow: 446, outflow: 400 },
 ];
 
+// Configuration for the chart, including labels and colors
 const chartConfig = {
   tradingFlow: {
     label: "TradingFlow",
@@ -133,9 +137,12 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
+// Main component for the mock trading flow chart
 export default function MockTradingFlowChart() {
+  // State for the time range selection
   const [timeRange, setTimeRange] = React.useState("90d");
 
+  // Filter the data based on the selected time range
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date);
     const referenceDate = new Date("2024-06-30");
@@ -152,6 +159,7 @@ export default function MockTradingFlowChart() {
 
   return (
     <Card className="w-full">
+      {/*Card header with title and description*/}
       <CardHeader className="flex items-center gap-2 space-y-0 border-b py-5 sm:flex-row">
         <div className="grid flex-1 gap-1 text-center sm:text-left">
           <CardTitle>Inbound and outbound flow over time</CardTitle>
@@ -159,6 +167,7 @@ export default function MockTradingFlowChart() {
             Inbound and outbound trading volume during Jan 2024 to Jun 2024
           </CardDescription>
         </div>
+        {/*Select component for time range selection*/}
         <Select value={timeRange} onValueChange={setTimeRange}>
           <SelectTrigger
             className="w-[160px] rounded-lg sm:ml-auto"
@@ -180,11 +189,13 @@ export default function MockTradingFlowChart() {
         </Select>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
+        {/*Chart container with area chart, legend and tooltip*/}
         <ChartContainer
           config={chartConfig}
           className="aspect-auto h-[250px] w-full"
         >
           <AreaChart data={filteredData}>
+            {/*Area chart with data and data keys*/}
             <defs>
               <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
                 <stop
@@ -211,7 +222,9 @@ export default function MockTradingFlowChart() {
                 />
               </linearGradient>
             </defs>
+            {/*Cartesian grid with vertical and horizontal lines*/}
             <CartesianGrid vertical={false} />
+            {/*X-axis with date values*/}
             <XAxis
               dataKey="date"
               tickLine={false}
@@ -226,6 +239,7 @@ export default function MockTradingFlowChart() {
                 });
               }}
             />
+            {/*Chart tooltip with content*/}
             <ChartTooltip
               cursor={false}
               content={
@@ -240,6 +254,7 @@ export default function MockTradingFlowChart() {
                 />
               }
             />
+            {/*Area chart with inflow and outflow data*/}
             <Area
               dataKey="inflow"
               type="natural"
@@ -254,6 +269,7 @@ export default function MockTradingFlowChart() {
               stroke="var(--color-outflow)"
               stackId="a"
             />
+            {/*Chart legend with content*/}
             <ChartLegend content={<ChartLegendContent />} />
           </AreaChart>
         </ChartContainer>

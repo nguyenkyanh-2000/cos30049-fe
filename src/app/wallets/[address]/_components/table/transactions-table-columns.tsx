@@ -1,3 +1,4 @@
+// Import necessary modules and components
 "use client";
 
 import { TransactionDto } from "@/app/_api-types/transactions";
@@ -16,6 +17,7 @@ import Link from "next/link";
 import { TransactionDetailDialog } from "../transaction-detail-dialog";
 import { format } from "date-fns";
 
+// Define the columns for the transactions table
 export const transactionsTableColumn: ColumnDef<TransactionDto>[] = [
   {
     accessorKey: "value",
@@ -42,6 +44,7 @@ export const transactionsTableColumn: ColumnDef<TransactionDto>[] = [
     size: 150,
     header: () => <span className="font-bold">Block Timestamp</span>,
     cell: (props) => {
+      // Format the block timestamp
       const date = format(
         props.row.original.blockTimestamp,
         "HH:mm:ss, dd MMMM yyyy"

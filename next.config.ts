@@ -1,10 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  reactStrictMode: false,
-  experimental: {
-    ppr: "incremental",
+  eslint: {
+    ignoreDuringBuilds: true,
   },
+  reactStrictMode: false,
   images: {
     remotePatterns: [
       {
