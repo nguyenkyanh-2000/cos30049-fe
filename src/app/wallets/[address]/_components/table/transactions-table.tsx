@@ -25,7 +25,6 @@ import {
 } from "@/app/_api-types/transactions";
 import { transactionsTableColumn } from "./transactions-table-columns";
 import { DataTablePagination } from "./data-table-pagination";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -149,14 +148,8 @@ export function TransactionsTable() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="h-[400px] w-full border rounded-md overflow-x-auto">
-        <form
-          className="overflow-hidden"
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmitSearchQueries(new FormData(e.currentTarget));
-          }}
-        >
+      <div className="h-[400px] w-full border rounded-md overflow-x-auto relative">
+        <form action={handleSubmitSearchQueries}>
           <Table className="min-w-full">
             <TableHeader className="z-10">
               {table.getHeaderGroups().map((headerGroup) => (

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import Link from 'next/link';
+import Link from "next/link";
 import React from "react";
 
 // Hero component for the main section of the page
@@ -22,7 +22,7 @@ export default async function Hero() {
         </p>
 
         {/* Call to action button */}
-        <Link href="wallets" passHref>
+        <Link href="/wallets">
           <Button>Get started</Button>
         </Link>
       </div>

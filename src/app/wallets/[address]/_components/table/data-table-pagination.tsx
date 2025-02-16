@@ -65,7 +65,7 @@ export function DataTablePagination<TData>({
           aria-label="Go to first page"
           variant="outline"
           className="hidden size-8 p-0 lg:flex"
-          onClick={() => table.setPageIndex(1)}
+          onClick={() => table.setPageIndex(0)}
           disabled={!table.getCanPreviousPage()}
         >
           <ChevronsLeft className="size-4" aria-hidden="true" />
