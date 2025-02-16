@@ -149,10 +149,10 @@ export function TransactionsTable() {
 
   return (
     <div className="flex flex-col gap-4">
-      <ScrollArea className="h-[400px] w-full border rounded-md">
+      <ScrollArea className="h-[400px] w-full border rounded-md overflow-x-auto">
         <form action={handleSubmitSearchQueries}>
-          <Table>
-            <TableHeader className="z-10 ">
+          <Table className="min-w-[800px]">
+            <TableHeader className="z-10">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {

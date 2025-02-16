@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Facebook, Github, Instagram, Twitter } from "lucide-react";
@@ -6,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="mx-auto py-12 pt-8">
       {/* Desktop Footer */}
-      <div className="hidden md:block px-6 container mx-auto">
+      <div className="hidden md:block px-10 mx-auto">
         {/* Top Section - Newsletter with Input */}
         <div className="flex justify-between items-start mb-12">
           <div>
@@ -130,7 +132,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        <form className="relative">
+        <form className="relative px-5">
           <input
             type="email"
             placeholder="Enter your email..."
@@ -139,7 +141,7 @@ export default function Footer() {
           />
           <Button
             type="submit"
-            className="absolute right-1 top-1/2 -translate-y-1/2"
+            className="absolute right-6 top-1/2 -translate-y-1/2"
           >
             Subscribe
           </Button>

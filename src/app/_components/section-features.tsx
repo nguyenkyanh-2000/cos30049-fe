@@ -57,28 +57,28 @@ const CTASection = () => {
             </div>
 
             {/* Right Column - Stats */}
-            <div className="bg-gray-800/50 backdrop-blur-sm rounded-2xl p-8 border border-gray-800/50">
+            <div className="bg-gray-500 backdrop-blur-sm rounded-2xl p-8 border border-gray-800/50">
               <div className="grid grid-cols-2 gap-8">
-                <div className="text-center p-6 bg-gray-900/50 rounded-xl">
-                  <div className="text-4xl font-bold text-primary mb-2">
+                <div className="text-center p-6 bg-gray-600 rounded-xl">
+                  <div className="text-4xl font-bold text-white mb-2">
                     $2B+
                   </div>
                   <div className="text-gray-400">Trading Volume</div>
                 </div>
-                <div className="text-center p-6 bg-gray-900/50 rounded-xl">
-                  <div className="text-4xl font-bold text-primary mb-2">
+                <div className="text-center p-6 bg-gray-600 rounded-xl">
+                  <div className="text-4xl font-bold text-white mb-2">
                     180+
                   </div>
                   <div className="text-gray-400">Countries</div>
                 </div>
-                <div className="text-center p-6 bg-gray-900/50 rounded-xl">
-                  <div className="text-4xl font-bold text-primary mb-2">
+                <div className="text-center p-6 bg-gray-600 rounded-xl">
+                  <div className="text-4xl font-bold text-white mb-2">
                     1M+
                   </div>
                   <div className="text-gray-400">Users</div>
                 </div>
-                <div className="text-center p-6 bg-gray-900/50 rounded-xl">
-                  <div className="text-4xl font-bold text-primary mb-2">
+                <div className="text-center p-6 bg-gray-600 rounded-xl">
+                  <div className="text-4xl font-bold text-white mb-2">
                     24/7
                   </div>
                   <div className="text-gray-400">Support</div>
