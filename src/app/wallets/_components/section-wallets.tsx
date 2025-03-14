@@ -10,7 +10,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { WalletCard } from "./wallet-card";
 import { searchWallet } from "@/actions/wallet/search-wallet";
 import { ActionResult } from "@/actions/action.type";
-import SectionNeo4jGraph from "../[address]/_components/section-neo4j-graph";
 
 const initialState = {
   success: false,
