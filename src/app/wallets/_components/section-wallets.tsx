@@ -10,7 +10,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { WalletCard } from "./wallet-card";
 import { searchWallet } from "@/actions/wallet/search-wallet";
 import { ActionResult } from "@/actions/action.type";
-import SectionNeo4jGraph from "../[address]/_components/section-neo4j-graph";
 
 const initialState = {
   success: false,
@@ -68,7 +67,10 @@ const SectionWallet = () => {
                 name="searchQuery"
                 className="w-full rounded-lg border border-gray-300"
               />
-              <Button className="flex justify-center items-center" type="submit">
+              <Button
+                className="flex justify-center items-center"
+                type="submit"
+              >
                 <Search className="h-5 w-5" />
               </Button>
             </div>
@@ -92,10 +94,7 @@ const SectionWallet = () => {
                 <div className="flex flex-col gap-4">
                   {wallets.map((wallet) => (
                     <div key={wallet.address}>
-                      <WalletCard
-                        wallet={wallet}
-                        searchQuery={searchQuery}
-                      />
+                      <WalletCard wallet={wallet} searchQuery={searchQuery} />
                     </div>
                   ))}
                 </div>
@@ -120,7 +119,7 @@ const SectionWallet = () => {
       </section>
 
       {/* Graph View Section */}
-      <section className="container mx-auto px-5 pb-12">
+      {/* <section className="container mx-auto px-5 pb-12">
         <div className="rounded-xl border p-4">
           <h2 className="text-2xl font-semibold mb-4">Transaction Graph View</h2>
           {wallets.length > 0 ? (
@@ -132,7 +131,7 @@ const SectionWallet = () => {
             </div>
           )}
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };

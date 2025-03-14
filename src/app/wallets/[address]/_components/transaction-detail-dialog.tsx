@@ -74,7 +74,7 @@ export function TransactionDetailDialog({
                   label="Timestamp"
                   value={
                     transaction.blockTimestamp
-                      ? format(new Date(Number(transaction.blockTimestamp) * 1000), "PPpp")
+                      ? format(transaction.blockTimestamp, "PPpp")
                       : "N/A"
                   }
                 />
