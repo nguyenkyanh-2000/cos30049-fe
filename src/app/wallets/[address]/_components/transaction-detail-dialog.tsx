@@ -72,7 +72,11 @@ export function TransactionDetailDialog({
                 />
                 <InfoField
                   label="Timestamp"
-                  value={format(new Date(transaction.blockTimestamp), "PPpp")}
+                  value={
+                    transaction.blockTimestamp
+                      ? format(transaction.blockTimestamp, "PPpp")
+                      : "N/A"
+                  }
                 />
               </div>
             </div>
